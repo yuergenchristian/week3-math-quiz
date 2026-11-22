@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#073563">
+  <meta name="description" content="An offline-friendly, teacher-controlled three-student math quiz with independently shuffled question banks.">
+  <title>Week 3 Math Quiz | Classroom Challenge</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="questions.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="topbar-brand">
+        <div class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" fill="none"><path d="M4 24 32 11 60 24 32 37 4 24Z" fill="white"/><path d="M16 32v13c0 9 32 9 32 0V32L32 40 16 32Z" fill="white"/><path d="M59 26v18" stroke="white" stroke-width="4" stroke-linecap="round"/></svg>
+        </div>
+        <div class="brand-name"><h1>Week 3 Math Quiz</h1><span class="brand-subtitle">INDIVIDUAL QUESTIONS · ONE TEAM</span></div>
+      </div>
+      <div class="header-actions">
+        <span id="session-flag" class="session-flag">READY</span>
+        <button id="timer-toggle" class="timer-button" type="button" aria-label="Start the fifteen-minute timer" title="Start or pause timer">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="13" r="8.2" stroke="currentColor" stroke-width="2"/><path d="M12 8.5v5l3 1.7M9 2.7h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <strong id="timer-readout">15:00</strong>
+          <span id="timer-verb">START</span>
+        </button>
+        <button id="music-toggle" class="icon-button" type="button" aria-label="Play music" title="Play or pause optional music">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10 18.4V5.3l10-2.5v13.7M10 7.8l10-2.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="7.1" cy="19" rx="3.3" ry="2.2" fill="currentColor"/><ellipse cx="17.1" cy="17.2" rx="3.3" ry="2.2" fill="currentColor"/></svg>
+        </button>
+        <button id="fullscreen-toggle" class="icon-button extra-action" type="button" aria-label="Toggle fullscreen" title="Fullscreen (F)">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button id="settings-toggle" class="icon-button" type="button" aria-haspopup="dialog" aria-controls="teacher-dialog" aria-label="Open teacher controls" title="Teacher controls">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.5v2m0 13v2M3.5 12h2m13 0h2M6 6l1.5 1.5m9 9L18 18M18 6l-1.5 1.5m-9 9L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="2.2"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div id="timeup-notice" role="status" aria-live="polite" class="timeup-notice" hidden>⏰ Time's up! Collect the answer sheets. Teacher can unlock navigation in Settings if needed.</div>
+
+    <main class="quiz-stack" id="quiz-stack" aria-label="Three independent math quiz panels">
+      <section class="student-panel theme-red" data-student="fitri" aria-labelledby="student-name-fitri">
+        <div class="student-head"><span class="student-name" id="student-name-fitri">Fitri</span><span class="student-spark" aria-hidden="true">✦</span></div>
+        <div class="question-frame">
+          <button type="button" class="nav-button" data-student="fitri" data-direction="-1" aria-label="Previous question for Fitri" title="Previous question"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8"/></svg></button>
+          <div class="question-center">
+            <div class="math-expression" id="expression-fitri" aria-live="polite">Loading…</div>
+            <div class="question-detail"><span class="question-id" id="id-fitri">F-001</span><span class="detail-separator">·</span><span id="progress-fitri">Question 1 of 30</span></div>
+          </div>
+          <button type="button" class="nav-button" data-student="fitri" data-direction="1" aria-label="Next question for Fitri" title="Next question"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 4 8 8-8 8"/></svg></button>
+        </div>
+        <div class="panel-progress"><div class="panel-progress-fill" id="bar-fitri"></div></div>
+      </section>
+
+      <section class="student-panel theme-green" data-student="salsa" aria-labelledby="student-name-salsa">
+        <div class="student-head"><span class="student-name" id="student-name-salsa">Salsa</span><span class="student-spark" aria-hidden="true">✦</span></div>
+        <div class="question-frame">
+          <button type="button" class="nav-button" data-student="salsa" data-direction="-1" aria-label="Previous question for Salsa" title="Previous question"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8"/></svg></button>
+          <div class="question-center">
+            <div class="math-expression" id="expression-salsa" aria-live="polite">Loading…</div>
+            <div class="question-detail"><span class="question-id" id="id-salsa">S-001</span><span class="detail-separator">·</span><span id="progress-salsa">Question 1 of 30</span></div>
+          </div>
+          <button type="button" class="nav-button" data-student="salsa" data-direction="1" aria-label="Next question for Salsa" title="Next question"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 4 8 8-8 8"/></svg></button>
+        </div>
+        <div class="panel-progress"><div class="panel-progress-fill" id="bar-salsa"></div></div>
+      </section>
+
+      <section class="student-panel theme-blue" data-student="mandala" aria-labelledby="student-name-mandala">
+        <div class="student-head"><span class="student-name" id="student-name-mandala">Mandala</span><span class="student-spark" aria-hidden="true">✦</span></div>
+        <div class="question-frame">
+          <button type="button" class="nav-button" data-student="mandala" data-direction="-1" aria-label="Previous question for Mandala" title="Previous question"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8"/></svg></button>
+          <div class="question-center">
+            <div class="math-expression" id="expression-mandala" aria-live="polite">Loading…</div>
+            <div class="question-detail"><span class="question-id" id="id-mandala">M-001</span><span class="detail-separator">·</span><span id="progress-mandala">Question 1 of 30</span></div>
+          </div>
+          <button type="button" class="nav-button" data-student="mandala" data-direction="1" aria-label="Next question for Mandala" title="Next question"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 4 8 8-8 8"/></svg></button>
+        </div>
+        <div class="panel-progress"><div class="panel-progress-fill" id="bar-mandala"></div></div>
+      </section>
+    </main>
+
+    <footer class="bottom-bar"><span><b>Write the question ID + answer</b> on the paper sheet.</span><span class="bottom-shortcuts">Keys: <kbd>1</kbd> Fitri · <kbd>2</kbd> Salsa · <kbd>3</kbd> Mandala · <kbd>Space</kbd> Timer</span></footer>
+  </div>
+
+  <dialog id="teacher-dialog" class="teacher-dialog" aria-labelledby="teacher-heading">
+    <div class="dialog-inner">
+      <div class="dialog-heading"><div><span class="dialog-eyebrow">FOR THE TEACHER</span><h2 id="teacher-heading">Teacher controls</h2></div><button id="settings-close" class="close-button" type="button" aria-label="Close teacher controls">×</button></div>
+      <div class="tabs" role="tablist" aria-label="Teacher controls sections">
+        <button class="tab active" id="tab-setup" type="button" data-tab="setup" role="tab" aria-selected="true" aria-controls="content-setup">Session</button>
+        <button class="tab" id="tab-score" type="button" data-tab="score" role="tab" aria-selected="false" aria-controls="content-score">Team score</button>
+        <button class="tab" id="tab-help" type="button" data-tab="help" role="tab" aria-selected="false" aria-controls="content-help">Help</button>
+      </div>
+      <section class="tab-content" id="content-setup" role="tabpanel" aria-labelledby="tab-setup">
+        <p class="explain">Each student has 30 fixed questions with permanent IDs. The starting order is shuffled once per session and saved on this device.</p>
+        <div class="field-group">
+          <label for="name-fitri">Top / red student</label><input id="name-fitri" type="text" value="Fitri" maxlength="24" autocomplete="off">
+          <label for="name-salsa">Middle / green student</label><input id="name-salsa" type="text" value="Salsa" maxlength="24" autocomplete="off">
+          <label for="name-mandala">Bottom / blue student</label><input id="name-mandala" type="text" value="Mandala" maxlength="24" autocomplete="off">
+        </div>
+        <div class="field-group">
+          <label for="order-mode">Question order for a new session</label>
+          <select id="order-mode"><option value="guided">Guided shuffle (recommended)</option><option value="random">Fully random</option></select>
+          <p class="field-help">Guided shuffle starts Mandala with simpler subtraction, Salsa with multiplication, and Fitri with a balanced mix. Questions are still shuffled within those groups.</p>
+        </div>
+        <div class="field-group">
+          <label for="music-file">Background music (optional)</label>
+          <input id="music-file" type="file" accept="audio/*,.mp3,.ogg,.wav,.m4a">
+          <label for="music-volume">Volume <span id="volume-label">35%</span></label>
+          <input id="music-volume" type="range" min="0" max="100" value="35">
+          <p class="field-help">Select a local audio file, or place your permitted <code>music.mp3</code> at <code>assets/music.mp3</code>. Music plays only when you press the music button. Choosing a local file does not upload it anywhere.</p>
+        </div>
+        <label class="toggle-line"><input id="unlock-navigation" type="checkbox"> Allow question navigation after the timer ends</label>
+        <div class="button-grid"><button id="reset-timer" class="small-btn outline" type="button">↺ Reset 15-minute timer</button><button id="export-order" class="small-btn outline" type="button">↓ Export session question order</button></div>
+        <button id="new-session" class="small-btn danger-btn" type="button">↻ Start a new shuffled session (resets scores)</button>
+      </section>
+      <section class="tab-content" id="content-score" role="tabpanel" aria-labelledby="tab-score" hidden>
+        <p class="explain"><b>Mark paper answers privately.</b> Enter each child's attempted questions and correct answers. No answers are collected on the public quiz screen.</p>
+        <div class="score-grid score-labels"><span>Student</span><span>Attempted</span><span>Correct</span></div>
+        <div class="score-grid"><strong id="score-name-fitri">Fitri</strong><input id="attempted-fitri" type="number" inputmode="numeric" min="0" max="30" value="0"><input id="correct-fitri" type="number" inputmode="numeric" min="0" max="30" value="0"></div>
+        <div class="score-grid"><strong id="score-name-salsa">Salsa</strong><input id="attempted-salsa" type="number" inputmode="numeric" min="0" max="30" value="0"><input id="correct-salsa" type="number" inputmode="numeric" min="0" max="30" value="0"></div>
+        <div class="score-grid"><strong id="score-name-mandala">Mandala</strong><input id="attempted-mandala" type="number" inputmode="numeric" min="0" max="30" value="0"><input id="correct-mandala" type="number" inputmode="numeric" min="0" max="30" value="0"></div>
+        <div class="score-thresholds"><label>Team goal <input id="team-target" type="number" min="1" max="90" value="23"> correct</label><label>Minimum per child <input id="student-min" type="number" min="0" max="30" value="5"></label></div>
+        <div class="score-summary"><div class="score-headline"><span>Total correct</span><strong id="team-score-number">0 / 23</strong></div><div class="goal-track"><div class="goal-fill" id="team-score-bar"></div></div><p id="team-score-status" class="score-message" aria-live="polite">Enter the scores after checking the papers.</p></div>
+        <p class="field-help">The default team goal, 23 correct, is above 75% of an initial 30-question benchmark (10 per child). Extra correctly answered questions can help the total. The 5-correct minimum ensures everyone participates; you can adjust either rule.</p>
+        <button id="export-scores" class="small-btn outline" type="button">↓ Export scoring summary (CSV)</button>
+      </section>
+      <section class="tab-content" id="content-help" role="tabpanel" aria-labelledby="tab-help" hidden>
+        <ol class="help-list"><li><b>Before class:</b> print one 30-answer sheet per student. Choose music if you want it, and check that all questions are readable.</li><li><b>Start:</b> click the timer display. It counts down from 15 minutes. Click again to pause.</li><li><b>Advance independently:</b> click each student's right arrow when they finish. Left arrow returns to a previous question.</li><li><b>On paper:</b> write the permanent question ID (e.g. <b>F-014</b>) and the numeric answer. Scratch calculations go on separate blank paper.</li><li><b>After time:</b> check answers using your separate, private teacher key, then enter attempted and correct counts in the Team score tab.</li><li><b>Future sessions:</b> use New shuffled session to reshuffle all 30 questions per student. This does <i>not</i> generate new arithmetic problems.</li></ol>
+        <p class="explain">Keyboard shortcuts (when this dialog is closed): <kbd>1</kbd>, <kbd>2</kbd>, <kbd>3</kbd> next for red/green/blue; <kbd>Shift</kbd> + the number for previous; <kbd>Space</kbd> start/pause; <kbd>F</kbd> fullscreen; <kbd>Esc</kbd> leave fullscreen.</p>
+        <p class="field-help">This website has no backend and sends no scores online. Session preferences and teacher-entered scores are saved in this browser only. The public site's questions contain no answer keys; keep teacher PDFs off GitHub.</p>
+      </section>
+      <button id="dialog-done" class="small-btn done-btn" type="button">Done</button>
+    </div>
+  </dialog>
+  <div id="toast" role="status" aria-live="polite" class="toast" hidden></div>
+  <audio id="quiz-audio" preload="none" loop></audio>
+</body>
+</html>
